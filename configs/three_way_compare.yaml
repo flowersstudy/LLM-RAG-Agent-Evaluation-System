@@ -1,0 +1,37 @@
+# Three-way comparison: DeepSeek vs Kimi vs GLM-4-Flash
+experiment_id: three_way_compare
+description: "Three Chinese LLMs head-to-head on 50 RAG tasks"
+
+models:
+  - deepseek-chat
+  - moonshot-v1-8k
+  - glm-4-flash
+
+metrics:
+  - faithfulness
+  - retrieval_precision
+  - retrieval_recall
+  - answer_relevance
+
+dataset_path: data/samples/rag_tasks_50.json
+random_seed: 42
+llm_judge_model: deepseek-chat
+max_tasks: 50
+retriever_model: all-MiniLM-L6-v2
+reranker_model: ""
+retriever_top_k: 5
+
+model_params:
+  deepseek-chat:
+    base_url: https://api.deepseek.com/v1
+    env_prefix: DEEPSEEK
+  moonshot-v1-8k:
+    base_url: https://api.moonshot.cn/v1
+    env_prefix: KIMI
+  glm-4-flash:
+    base_url: https://open.bigmodel.cn/api/paas/v4/
+    env_prefix: ZHIPU
+
+judge_params:
+  base_url: https://api.deepseek.com/v1
+  env_prefix: DEEPSEEK
