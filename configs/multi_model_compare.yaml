@@ -1,0 +1,18 @@
+# Phase 2 Example: Multi-Model Comparison
+experiment_id: rag_multi_model_v1
+description: "Compare GPT-4o vs Claude on RAG tasks"
+
+models:
+  - gpt-4o
+  - claude-sonnet-4-6
+
+metrics:
+  - faithfulness
+  - retrieval_precision
+  - retrieval_recall
+  - answer_relevance
+
+dataset_path: data/samples/rag_tasks_50.json
+random_seed: 42
+llm_judge_model: gpt-4o
+max_tasks: 50

@@ -1,0 +1,17 @@
+# Phase 1 Example: RAG Evaluation with a single model
+experiment_id: rag_phase1_baseline
+description: "Baseline RAG evaluation with GPT-4o on 50-task sample dataset"
+
+models:
+  - gpt-4o
+
+metrics:
+  - faithfulness
+  - retrieval_precision
+  - retrieval_recall
+  - answer_relevance
+
+dataset_path: data/samples/rag_tasks_50.json
+random_seed: 42
+llm_judge_model: gpt-4o
+max_tasks: 10  # Start small; remove or increase for full run

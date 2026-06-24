@@ -1,0 +1,461 @@
+{
+  "metadata": {
+    "name": "RAG Evaluation Sample Dataset",
+    "version": "1.0",
+    "task_count": 50,
+    "domains": ["ai", "medicine", "history"],
+    "description": "50 RAG evaluation tasks across 3 domains for Phase 1 testing"
+  },
+  "tasks": [
+    {
+      "id": "rag_001",
+      "type": "rag",
+      "query": "What is the Transformer architecture and when was it introduced?",
+      "ground_truth": "The Transformer architecture was introduced in 2017 by Vaswani et al. in the paper 'Attention Is All You Need'. It relies entirely on self-attention mechanisms, abandoning recurrence and convolutions. Key components include multi-head attention, positional encoding, and feed-forward networks.",
+      "relevant_doc_ids": ["doc_ai_01"],
+      "domain": "ai",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_002",
+      "type": "rag",
+      "query": "How does RAG help reduce hallucination in language models?",
+      "ground_truth": "RAG reduces hallucination by retrieving relevant documents from a knowledge base and feeding them as context to the LLM. This grounds the model's output in external knowledge rather than relying solely on its parametric memory.",
+      "relevant_doc_ids": ["doc_ai_02"],
+      "domain": "ai",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_003",
+      "type": "rag",
+      "query": "What are the emergent abilities of large language models?",
+      "ground_truth": "Emergent abilities of LLMs include in-context learning, chain-of-thought reasoning, and tool use. These are capabilities not present in smaller models that emerge at scale.",
+      "relevant_doc_ids": ["doc_ai_03"],
+      "domain": "ai",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_004",
+      "type": "rag",
+      "query": "What is LoRA and how does it differ from full fine-tuning?",
+      "ground_truth": "LoRA (Low-Rank Adaptation) trains small adapter matrices while freezing the base model, unlike full fine-tuning which updates all parameters. QLoRA further improves memory efficiency through quantization.",
+      "relevant_doc_ids": ["doc_ai_04"],
+      "domain": "ai",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_005",
+      "type": "rag",
+      "query": "What algorithms enable fast similarity search in vector databases?",
+      "ground_truth": "Approximate Nearest Neighbor (ANN) algorithms like HNSW and IVF enable fast search over millions of vectors in vector databases.",
+      "relevant_doc_ids": ["doc_ai_05"],
+      "domain": "ai",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_006",
+      "type": "rag",
+      "query": "What are the key differences between RNNs and Transformers in processing sequences?",
+      "ground_truth": "Transformers process all input tokens in parallel, enabling much faster training than RNNs. RNNs process tokens sequentially. Transformers use self-attention to compute weighted representations of each token based on all other tokens.",
+      "relevant_doc_ids": ["doc_ai_01"],
+      "domain": "ai",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_007",
+      "type": "rag",
+      "query": "What is RLHF and what problem does it solve?",
+      "ground_truth": "RLHF (Reinforcement Learning from Human Feedback) aligns model behavior with human preferences. It is used after instruction fine-tuning to make models more helpful and safe.",
+      "relevant_doc_ids": ["doc_ai_04"],
+      "domain": "ai",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_008",
+      "type": "rag",
+      "query": "What were the main concerns with large language models mentioned in the context?",
+      "ground_truth": "Key concerns with LLMs include hallucination (generating plausible but false information), bias amplification, and high computational costs.",
+      "relevant_doc_ids": ["doc_ai_03"],
+      "domain": "ai",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_009",
+      "type": "rag",
+      "query": "Who popularized RAG and in what year?",
+      "ground_truth": "RAG was popularized by Facebook AI Research (now Meta AI) in 2020.",
+      "relevant_doc_ids": ["doc_ai_02"],
+      "domain": "ai",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_010",
+      "type": "rag",
+      "query": "How do vector databases support semantic search?",
+      "ground_truth": "Vector databases store embeddings — dense numerical representations of text. They enable similarity search by finding the k nearest neighbor embeddings to a query embedding, which is the core technology behind semantic search.",
+      "relevant_doc_ids": ["doc_ai_05"],
+      "domain": "ai",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_011",
+      "type": "rag",
+      "query": "Compare the training approach of LLMs with fine-tuning approaches.",
+      "ground_truth": "LLMs are trained using self-supervised learning with next-token prediction on massive text corpora. Fine-tuning adapts a pre-trained model to specific tasks, using methods like full fine-tuning, LoRA, or instruction fine-tuning.",
+      "relevant_doc_ids": ["doc_ai_03", "doc_ai_04"],
+      "domain": "ai",
+      "difficulty": "hard"
+    },
+    {
+      "id": "rag_012",
+      "type": "rag",
+      "query": "What are the challenges associated with RAG systems?",
+      "ground_truth": "Key challenges of RAG include retrieval quality, context window limits, and ensuring the model actually uses the retrieved information.",
+      "relevant_doc_ids": ["doc_ai_02"],
+      "domain": "ai",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_013",
+      "type": "rag",
+      "query": "How does the self-attention mechanism work in Transformers?",
+      "ground_truth": "The self-attention mechanism computes weighted representations of each token based on all other tokens in the sequence, allowing the model to capture dependencies regardless of distance.",
+      "relevant_doc_ids": ["doc_ai_01"],
+      "domain": "ai",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_014",
+      "type": "rag",
+      "query": "What methods exist for instruction following in LLMs?",
+      "ground_truth": "Instruction fine-tuning trains the model to follow user instructions rather than just complete text. RLHF further aligns model behavior with human preferences.",
+      "relevant_doc_ids": ["doc_ai_04"],
+      "domain": "ai",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_015",
+      "type": "rag",
+      "query": "Name three popular vector database systems.",
+      "ground_truth": "Popular vector database systems include Pinecone, Weaviate, Milvus, and Chroma.",
+      "relevant_doc_ids": ["doc_ai_05"],
+      "domain": "ai",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_016",
+      "type": "rag",
+      "query": "What is the dominant architecture paradigm for modern LLMs?",
+      "ground_truth": "The dominant paradigm is the Transformer decoder-only architecture, used by GPT, Claude, and Gemini.",
+      "relevant_doc_ids": ["doc_ai_03"],
+      "domain": "ai",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_017",
+      "type": "rag",
+      "query": "What are the risk factors for Type 2 diabetes?",
+      "ground_truth": "Risk factors for Type 2 diabetes include obesity, sedentary lifestyle, family history, and age over 45.",
+      "relevant_doc_ids": ["doc_med_01"],
+      "domain": "medicine",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_018",
+      "type": "rag",
+      "query": "What is metformin and what is its role in diabetes treatment?",
+      "ground_truth": "Metformin is the first-line oral medication therapy for Type 2 diabetes management.",
+      "relevant_doc_ids": ["doc_med_01"],
+      "domain": "medicine",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_019",
+      "type": "rag",
+      "query": "What are the complications of untreated Type 2 diabetes?",
+      "ground_truth": "Complications of Type 2 diabetes include cardiovascular disease, neuropathy, nephropathy, and retinopathy.",
+      "relevant_doc_ids": ["doc_med_01"],
+      "domain": "medicine",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_020",
+      "type": "rag",
+      "query": "How does the HbA1c test work and what does it measure?",
+      "ground_truth": "The HbA1c test measures average blood glucose over 2-3 months.",
+      "relevant_doc_ids": ["doc_med_01"],
+      "domain": "medicine",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_021",
+      "type": "rag",
+      "query": "What is the difference between bactericidal and bacteriostatic antibiotics?",
+      "ground_truth": "Bactericidal antibiotics kill bacteria, while bacteriostatic antibiotics inhibit their growth.",
+      "relevant_doc_ids": ["doc_med_02"],
+      "domain": "medicine",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_022",
+      "type": "rag",
+      "query": "What mechanisms do bacteria use to develop antibiotic resistance?",
+      "ground_truth": "Bacteria develop resistance through enzymatic degradation, target modification, and efflux pumps. Resistance is driven by overuse and misuse of antibiotics.",
+      "relevant_doc_ids": ["doc_med_02"],
+      "domain": "medicine",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_023",
+      "type": "rag",
+      "query": "List the major classes of antibiotics mentioned.",
+      "ground_truth": "Major antibiotic classes include penicillins (e.g., amoxicillin), cephalosporins, tetracyclines, macrolides, and fluoroquinolones.",
+      "relevant_doc_ids": ["doc_med_02"],
+      "domain": "medicine",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_024",
+      "type": "rag",
+      "query": "How do mRNA vaccines work differently from traditional vaccines?",
+      "ground_truth": "mRNA vaccines deliver genetic instructions for cells to produce a viral protein, which then triggers an immune response. Traditional vaccines use weakened or inactivated pathogens or pieces of them.",
+      "relevant_doc_ids": ["doc_med_03"],
+      "domain": "medicine",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_025",
+      "type": "rag",
+      "query": "What is the definition of hypertension and how many people does it affect?",
+      "ground_truth": "Hypertension is defined as systolic pressure ≥ 130 mmHg or diastolic pressure ≥ 80 mmHg. It affects approximately 1.3 billion adults worldwide.",
+      "relevant_doc_ids": ["doc_med_04"],
+      "domain": "medicine",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_026",
+      "type": "rag",
+      "query": "What are the main treatment approaches for hypertension?",
+      "ground_truth": "Treatment for hypertension includes lifestyle changes (reduced sodium intake, exercise, weight loss) and medications such as ACE inhibitors, ARBs, calcium channel blockers, and diuretics.",
+      "relevant_doc_ids": ["doc_med_04"],
+      "domain": "medicine",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_027",
+      "type": "rag",
+      "query": "What are the two main branches of the human immune system?",
+      "ground_truth": "The two main branches are innate immunity (rapid, non-specific) and adaptive immunity (slower, highly specific).",
+      "relevant_doc_ids": ["doc_med_05"],
+      "domain": "medicine",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_028",
+      "type": "rag",
+      "query": "What cells are involved in adaptive immunity and what are their functions?",
+      "ground_truth": "Adaptive immunity involves B lymphocytes (producing antibodies) and T lymphocytes (cell-mediated immunity).",
+      "relevant_doc_ids": ["doc_med_05"],
+      "domain": "medicine",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_029",
+      "type": "rag",
+      "query": "What is immunological memory and why is it important?",
+      "ground_truth": "Immunological memory allows faster and stronger responses upon re-exposure to pathogens. It is the basis for vaccine effectiveness.",
+      "relevant_doc_ids": ["doc_med_03", "doc_med_05"],
+      "domain": "medicine",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_030",
+      "type": "rag",
+      "query": "What are autoimmune diseases?",
+      "ground_truth": "Autoimmune diseases occur when the immune system attacks the body's own tissues.",
+      "relevant_doc_ids": ["doc_med_05"],
+      "domain": "medicine",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_031",
+      "type": "rag",
+      "query": "Why is hypertension called the 'silent killer'?",
+      "ground_truth": "Hypertension is often asymptomatic, meaning people may have it without knowing. Regular monitoring is essential because it is a major risk factor for stroke, heart attack, heart failure, and kidney disease.",
+      "relevant_doc_ids": ["doc_med_04"],
+      "domain": "medicine",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_032",
+      "type": "rag",
+      "query": "List the major vaccine types and give an example of each.",
+      "ground_truth": "Major vaccine types include: live attenuated (e.g., MMR), inactivated (e.g., polio), subunit/recombinant (e.g., HPV), and mRNA vaccines (e.g., some COVID-19 vaccines).",
+      "relevant_doc_ids": ["doc_med_03"],
+      "domain": "medicine",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_033",
+      "type": "rag",
+      "query": "What is antibiotic stewardship and why is it important?",
+      "ground_truth": "Antibiotic stewardship is the practice of proper antibiotic use to preserve their effectiveness. It is important because antibiotic resistance is a growing global health threat driven by overuse and misuse.",
+      "relevant_doc_ids": ["doc_med_02"],
+      "domain": "medicine",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_034",
+      "type": "rag",
+      "query": "When and where did the Industrial Revolution begin?",
+      "ground_truth": "The Industrial Revolution began in Britain around 1760 and spread to Europe and North America.",
+      "relevant_doc_ids": ["doc_hist_01"],
+      "domain": "history",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_035",
+      "type": "rag",
+      "query": "What were the key innovations of the Industrial Revolution?",
+      "ground_truth": "Key innovations of the Industrial Revolution included the steam engine (James Watt, 1769), the spinning jenny, and the power loom.",
+      "relevant_doc_ids": ["doc_hist_01"],
+      "domain": "history",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_036",
+      "type": "rag",
+      "query": "What social problems were caused by the Industrial Revolution?",
+      "ground_truth": "The Industrial Revolution brought significant social problems including child labor, poor working conditions, and environmental pollution.",
+      "relevant_doc_ids": ["doc_hist_01"],
+      "domain": "history",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_037",
+      "type": "rag",
+      "query": "What triggered the start of World War I?",
+      "ground_truth": "World War I was triggered by the assassination of Archduke Franz Ferdinand of Austria-Hungary.",
+      "relevant_doc_ids": ["doc_hist_02"],
+      "domain": "history",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_038",
+      "type": "rag",
+      "query": "What were the main features of World War I combat?",
+      "ground_truth": "Key features of WWI combat included trench warfare, the use of chemical weapons, and the first large-scale use of aircraft in combat.",
+      "relevant_doc_ids": ["doc_hist_02"],
+      "domain": "history",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_039",
+      "type": "rag",
+      "query": "What was the Treaty of Versailles and what did it do?",
+      "ground_truth": "The Treaty of Versailles (1919) ended World War I, imposed heavy reparations on Germany, and redrew the map of Europe.",
+      "relevant_doc_ids": ["doc_hist_02"],
+      "domain": "history",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_040",
+      "type": "rag",
+      "query": "Who were the key figures of the Renaissance and what were their contributions?",
+      "ground_truth": "Key Renaissance figures include Leonardo da Vinci (art and science), Michelangelo (sculpture and painting), and Galileo Galilei (astronomy and physics).",
+      "relevant_doc_ids": ["doc_hist_03"],
+      "domain": "history",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_041",
+      "type": "rag",
+      "query": "How did the printing press impact the Renaissance?",
+      "ground_truth": "The printing press, invented by Johannes Gutenberg around 1440, accelerated the spread of Renaissance ideas across Europe.",
+      "relevant_doc_ids": ["doc_hist_03"],
+      "domain": "history",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_042",
+      "type": "rag",
+      "query": "What was Humanism and what role did it play in the Renaissance?",
+      "ground_truth": "Humanism emphasized human potential and achievement. It was the intellectual foundation of the Renaissance.",
+      "relevant_doc_ids": ["doc_hist_03"],
+      "domain": "history",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_043",
+      "type": "rag",
+      "query": "Why was the Cold War called 'cold'?",
+      "ground_truth": "It was called 'cold' because no direct large-scale fighting occurred between the two superpowers (US and Soviet Union), but proxy wars were fought in Korea, Vietnam, and Afghanistan.",
+      "relevant_doc_ids": ["doc_hist_04"],
+      "domain": "history",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_044",
+      "type": "rag",
+      "query": "What were the key events of the Cold War?",
+      "ground_truth": "Key Cold War events include the Berlin Blockade (1948), Cuban Missile Crisis (1962), and the Space Race. US strategy was guided by the policy of containment.",
+      "relevant_doc_ids": ["doc_hist_04"],
+      "domain": "history",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_045",
+      "type": "rag",
+      "query": "What events marked the end of the Cold War?",
+      "ground_truth": "The Cold War ended with the fall of the Berlin Wall in 1989 and the dissolution of the Soviet Union in 1991.",
+      "relevant_doc_ids": ["doc_hist_04"],
+      "domain": "history",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_046",
+      "type": "rag",
+      "query": "What goods and ideas were exchanged along the Silk Road?",
+      "ground_truth": "The Silk Road facilitated the exchange of goods (silk, spices, precious metals), technologies (papermaking, gunpowder), and ideas (Buddhism spread from India to China).",
+      "relevant_doc_ids": ["doc_hist_05"],
+      "domain": "history",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_047",
+      "type": "rag",
+      "query": "What factors contributed to the decline of the Silk Road?",
+      "ground_truth": "The rise of maritime trade and the Ottoman Empire contributed to the decline of the Silk Road.",
+      "relevant_doc_ids": ["doc_hist_05"],
+      "domain": "history",
+      "difficulty": "medium"
+    },
+    {
+      "id": "rag_048",
+      "type": "rag",
+      "query": "Who was Marco Polo and what was his significance?",
+      "ground_truth": "Marco Polo traveled along the Silk Road from 1271 to 1295. His accounts introduced Europeans to the riches of the East.",
+      "relevant_doc_ids": ["doc_hist_05"],
+      "domain": "history",
+      "difficulty": "easy"
+    },
+    {
+      "id": "rag_049",
+      "type": "rag",
+      "query": "Compare the First and Second Industrial Revolutions.",
+      "ground_truth": "The First Industrial Revolution (starting ~1760) introduced steam power, textile machinery, and factory systems. The Second Industrial Revolution (1870-1914) introduced electricity, steel production, and assembly lines.",
+      "relevant_doc_ids": ["doc_hist_01"],
+      "domain": "history",
+      "difficulty": "hard"
+    },
+    {
+      "id": "rag_050",
+      "type": "rag",
+      "query": "What were the two main alliances in World War I and which countries were in each?",
+      "ground_truth": "The Allied Powers included Britain, France, Russia, and later the US. The Central Powers included Germany, Austria-Hungary, and the Ottoman Empire.",
+      "relevant_doc_ids": ["doc_hist_02"],
+      "domain": "history",
+      "difficulty": "medium"
+    }
+  ]
+}

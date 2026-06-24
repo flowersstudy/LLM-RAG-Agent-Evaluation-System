@@ -1,0 +1,77 @@
+[
+  {
+    "id": "doc_ai_01",
+    "content": "Transformer architecture was introduced in the 2017 paper 'Attention Is All You Need' by Vaswani et al. It relies entirely on self-attention mechanisms, abandoning recurrence and convolutions. The key components are multi-head attention, positional encoding, and feed-forward networks. Transformers process all input tokens in parallel, enabling much faster training than RNNs. The self-attention mechanism computes weighted representations of each token based on all other tokens in the sequence.",
+    "metadata": {"domain": "ai", "topic": "transformers"}
+  },
+  {
+    "id": "doc_ai_02",
+    "content": "Retrieval-Augmented Generation (RAG) combines a retrieval system with a language model. When a user asks a question, the system first retrieves relevant documents from a knowledge base, then feeds those documents as context to the LLM. This helps reduce hallucination by grounding the model's output in external knowledge. RAG was popularized by Facebook AI Research (now Meta AI) in 2020. Key challenges include retrieval quality, context window limits, and ensuring the model actually uses the retrieved information.",
+    "metadata": {"domain": "ai", "topic": "rag"}
+  },
+  {
+    "id": "doc_ai_03",
+    "content": "Large Language Models (LLMs) are trained on massive text corpora using self-supervised learning. The dominant paradigm is the Transformer decoder-only architecture, used by GPT, Claude, and Gemini. Training involves next-token prediction on trillions of tokens. Emergent abilities — capabilities not present in smaller models — include in-context learning, chain-of-thought reasoning, and tool use. Key concerns include hallucination (generating plausible but false information), bias amplification, and high computational costs.",
+    "metadata": {"domain": "ai", "topic": "llm"}
+  },
+  {
+    "id": "doc_ai_04",
+    "content": "Fine-tuning is the process of adapting a pre-trained model to a specific task or domain. Methods include: full fine-tuning (all parameters updated), LoRA (Low-Rank Adaptation — trains small adapter matrices while freezing the base model), and QLoRA (quantized LoRA for memory efficiency). Instruction fine-tuning trains the model to follow user instructions rather than just complete text. RLHF (Reinforcement Learning from Human Feedback) further aligns model behavior with human preferences.",
+    "metadata": {"domain": "ai", "topic": "fine-tuning"}
+  },
+  {
+    "id": "doc_ai_05",
+    "content": "Vector databases store embeddings — dense numerical representations of text, images, or other data. Popular systems include Pinecone, Weaviate, Milvus, and Chroma. They enable similarity search: given a query embedding, find the k nearest neighbor embeddings in the database. This is the core technology behind semantic search and RAG retrieval. Approximate Nearest Neighbor (ANN) algorithms like HNSW and IVF enable fast search over millions of vectors.",
+    "metadata": {"domain": "ai", "topic": "vector-db"}
+  },
+  {
+    "id": "doc_med_01",
+    "content": "Type 2 diabetes is a chronic metabolic disorder characterized by insulin resistance and relative insulin deficiency. Risk factors include obesity, sedentary lifestyle, family history, and age over 45. Management involves lifestyle modifications (diet, exercise), oral medications (metformin is first-line therapy), and potentially insulin therapy. Complications include cardiovascular disease, neuropathy, nephropathy, and retinopathy. The HbA1c test measures average blood glucose over 2-3 months.",
+    "metadata": {"domain": "medicine", "topic": "diabetes"}
+  },
+  {
+    "id": "doc_med_02",
+    "content": "Antibiotics are medications used to treat bacterial infections. They work either by killing bacteria (bactericidal) or inhibiting their growth (bacteriostatic). Common classes include penicillins (e.g., amoxicillin), cephalosporins, tetracyclines, macrolides, and fluoroquinolones. Antibiotic resistance is a growing global health threat, driven by overuse and misuse. Resistance mechanisms include enzymatic degradation, target modification, and efflux pumps. Proper antibiotic stewardship is essential to preserve effectiveness.",
+    "metadata": {"domain": "medicine", "topic": "antibiotics"}
+  },
+  {
+    "id": "doc_med_03",
+    "content": "Vaccines work by exposing the immune system to an antigen (a weakened or inactivated pathogen, or a piece of it) to stimulate an immune response. This creates immunological memory, allowing the body to respond rapidly to future infections. Major vaccine types include: live attenuated (e.g., MMR), inactivated (e.g., polio), subunit/recombinant (e.g., HPV), and mRNA vaccines (e.g., some COVID-19 vaccines). mRNA vaccines deliver genetic instructions for cells to produce a viral protein, triggering an immune response.",
+    "metadata": {"domain": "medicine", "topic": "vaccines"}
+  },
+  {
+    "id": "doc_med_04",
+    "content": "Hypertension (high blood pressure) is defined as systolic pressure ≥ 130 mmHg or diastolic pressure ≥ 80 mmHg. It affects approximately 1.3 billion adults worldwide. It is a major risk factor for stroke, heart attack, heart failure, and kidney disease. Treatment includes lifestyle changes (reduced sodium intake, exercise, weight loss) and medications: ACE inhibitors, ARBs, calcium channel blockers, and diuretics. Regular monitoring is essential as hypertension is often asymptomatic.",
+    "metadata": {"domain": "medicine", "topic": "hypertension"}
+  },
+  {
+    "id": "doc_med_05",
+    "content": "The human immune system has two main branches: innate immunity (rapid, non-specific) and adaptive immunity (slower, highly specific). Innate immunity includes physical barriers (skin), phagocytic cells (macrophages, neutrophils), and the complement system. Adaptive immunity involves B lymphocytes (producing antibodies) and T lymphocytes (cell-mediated immunity). Immunological memory allows faster and stronger responses upon re-exposure to pathogens. Autoimmune diseases occur when the immune system attacks the body's own tissues.",
+    "metadata": {"domain": "medicine", "topic": "immunology"}
+  },
+  {
+    "id": "doc_hist_01",
+    "content": "The Industrial Revolution began in Britain around 1760 and spread to Europe and North America. Key innovations included the steam engine (James Watt, 1769), the spinning jenny, and the power loom. It transformed economies from agrarian to industrial, leading to urbanization, factory systems, and new social classes. The revolution also brought significant social problems: child labor, poor working conditions, and environmental pollution. The Second Industrial Revolution (1870-1914) introduced electricity, steel production, and assembly lines.",
+    "metadata": {"domain": "history", "topic": "industrial-revolution"}
+  },
+  {
+    "id": "doc_hist_02",
+    "content": "World War I (1914-1918) was triggered by the assassination of Archduke Franz Ferdinand of Austria-Hungary. The war involved the Allied Powers (Britain, France, Russia, later the US) against the Central Powers (Germany, Austria-Hungary, Ottoman Empire). Key features included trench warfare, the use of chemical weapons, and the first large-scale use of aircraft in combat. The war ended with the Treaty of Versailles (1919), which imposed heavy reparations on Germany and redrew the map of Europe.",
+    "metadata": {"domain": "history", "topic": "ww1"}
+  },
+  {
+    "id": "doc_hist_03",
+    "content": "The Renaissance (14th-17th centuries) was a cultural movement that began in Italy and spread across Europe. It marked the transition from the Middle Ages to modernity, characterized by a revival of classical learning and values. Key figures include Leonardo da Vinci (art and science), Michelangelo (sculpture and painting), and Galileo Galilei (astronomy and physics). The invention of the printing press by Johannes Gutenberg (c. 1440) accelerated the spread of Renaissance ideas. Humanism, emphasizing human potential and achievement, was the intellectual foundation.",
+    "metadata": {"domain": "history", "topic": "renaissance"}
+  },
+  {
+    "id": "doc_hist_04",
+    "content": "The Cold War (1947-1991) was a period of geopolitical tension between the United States and the Soviet Union. It was called 'cold' because no direct large-scale fighting occurred between the two superpowers, but proxy wars were fought in Korea, Vietnam, and Afghanistan. Key events include the Berlin Blockade (1948), Cuban Missile Crisis (1962), and the Space Race. The policy of containment guided US strategy. The Cold War ended with the fall of the Berlin Wall (1989) and the dissolution of the Soviet Union (1991).",
+    "metadata": {"domain": "history", "topic": "cold-war"}
+  },
+  {
+    "id": "doc_hist_05",
+    "content": "The Silk Road was an ancient network of trade routes connecting China to the Mediterranean, active from around 130 BCE to 1453 CE. It facilitated the exchange of goods (silk, spices, precious metals), technologies (papermaking, gunpowder), and ideas (Buddhism spread from India to China along these routes). The route was not a single path but a complex web of land and sea routes. Marco Polo's travels (1271-1295) introduced Europeans to the riches of the East. The rise of maritime trade and the Ottoman Empire contributed to its decline.",
+    "metadata": {"domain": "history", "topic": "silk-road"}
+  }
+]
