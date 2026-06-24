@@ -41,5 +41,8 @@ def parse_config(path: str | Path) -> ExperimentConfig:
         max_tasks=data.get("max_tasks"),
         model_params=data.get("model_params", {}),
         judge_params=data.get("judge_params", {}),
+        retriever_model=data.get("retriever_model", "BAAI/bge-base-en-v1.5"),
+        reranker_model=data.get("reranker_model", ""),
+        retriever_top_k=data.get("retriever_top_k", 5),
         metadata=data.get("metadata", {}),
     )

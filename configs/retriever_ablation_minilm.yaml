@@ -1,0 +1,29 @@
+# Ablation: MiniLM baseline (lightweight symmetric model)
+experiment_id: retriever_ablation_minilm
+description: "Baseline retrieval with all-MiniLM-L6-v2"
+
+models:
+  - deepseek-chat
+
+metrics:
+  - retrieval_precision
+  - retrieval_recall
+  - faithfulness
+  - answer_relevance
+
+dataset_path: data/samples/rag_tasks_50.json
+random_seed: 42
+llm_judge_model: deepseek-chat
+max_tasks: 50
+retriever_model: all-MiniLM-L6-v2
+reranker_model: ""
+retriever_top_k: 5
+
+model_params:
+  deepseek-chat:
+    base_url: https://api.deepseek.com/v1
+    env_prefix: DEEPSEEK
+
+judge_params:
+  base_url: https://api.deepseek.com/v1
+  env_prefix: DEEPSEEK

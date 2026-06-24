@@ -189,6 +189,18 @@ class ExperimentConfig(BaseModel):
         default_factory=dict,
         description="Overrides for the judge model: base_url, api_key",
     )
+    retriever_model: str = Field(
+        default="BAAI/bge-base-en-v1.5",
+        description="Embedding model for dense retrieval",
+    )
+    reranker_model: str = Field(
+        default="",
+        description="Cross-encoder reranker model. Empty = no reranker (single-stage).",
+    )
+    retriever_top_k: int = Field(
+        default=5,
+        description="Number of documents to retrieve",
+    )
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
 

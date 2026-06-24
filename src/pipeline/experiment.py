@@ -34,6 +34,7 @@ from src.evaluation.metrics.retrieval import (
 )
 from src.inference.adapters.openai import OpenAIAdapter
 from src.inference.rag import RAGPipeline
+from src.inference.reranker import Reranker, TwoStageRetriever
 from src.inference.retriever import DenseRetriever
 from src.utils.logging import close_tracing, get_logger, init_tracing
 from src.utils.reproducibility import seed_info, set_seed
@@ -96,7 +97,7 @@ class ExperimentRunner:
 
             # ── Load corpus for retrieval ──────────────────
             corpus_path = Path(config.dataset_path).parent / "corpus.json"
-            retriever = self._build_retriever(corpus_path)
+            retriever = self._build_retriever(corpus_path, config)
 
             # ── Run for each model ─────────────────────────
             for model_id in config.models:
@@ -172,18 +173,33 @@ class ExperimentRunner:
                 metrics.append(cls())
         return metrics
 
-    def _build_retriever(self, corpus_path: Path) -> DenseRetriever:
+    def _build_retriever(self, corpus_path: Path, config: ExperimentConfig):
+        """Build retriever from config. Supports single-stage and two-stage (with reranker)."""
         from src.core.models import Document
 
-        retriever = DenseRetriever()
+        # Build dense retriever
+        dense = DenseRetriever(model_name=config.retriever_model)
+
+        # Index corpus if available
         if corpus_path.exists():
             with open(corpus_path, "r", encoding="utf-8") as f:
                 docs_raw = json.load(f)
             documents = [Document(**d) for d in docs_raw]
-            retriever.index(documents)
+            dense.index(documents)
         else:
             logger.warning(f"Corpus not found at {corpus_path} — retriever will be empty")
-        return retriever
+
+        # Wrap in two-stage retriever if reranker is configured
+        if config.reranker_model:
+            reranker = Reranker(model_name=config.reranker_model)
+            stage2 = TwoStageRetriever(
+                dense_retriever=dense,
+                reranker=reranker,
+                final_top_k=config.retriever_top_k,
+            )
+            return stage2
+
+        return dense
 
     def _aggregate(self, manifest: ExperimentManifest) -> AggregateReport:
         model_ids = manifest.config.models
