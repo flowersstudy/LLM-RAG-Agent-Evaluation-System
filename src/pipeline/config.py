@@ -44,5 +44,6 @@ def parse_config(path: str | Path) -> ExperimentConfig:
         retriever_model=data.get("retriever_model", "BAAI/bge-base-en-v1.5"),
         reranker_model=data.get("reranker_model", ""),
         retriever_top_k=data.get("retriever_top_k", 5),
+        max_agent_steps=data.get("max_agent_steps", 10),
         metadata=data.get("metadata", {}),
     )

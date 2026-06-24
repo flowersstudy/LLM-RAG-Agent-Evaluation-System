@@ -27,6 +27,9 @@ DEFAULT_FAILURE_THRESHOLDS: Dict[str, Dict[str, float]] = {
     "retrieval_precision": {"threshold": 0.3, "failure_type": FailureType.RETRIEVAL},
     "retrieval_recall": {"threshold": 0.3, "failure_type": FailureType.RETRIEVAL},
     "answer_relevance": {"threshold": 0.5, "failure_type": FailureType.REASONING},
+    "task_success": {"threshold": 0.5, "failure_type": FailureType.TOOL},
+    "tool_selection_accuracy": {"threshold": 0.5, "failure_type": FailureType.TOOL},
+    "reasoning_trace_coherence": {"threshold": 0.5, "failure_type": FailureType.REASONING},
 }
 
 

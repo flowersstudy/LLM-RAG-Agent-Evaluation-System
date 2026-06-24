@@ -201,6 +201,10 @@ class ExperimentConfig(BaseModel):
         default=5,
         description="Number of documents to retrieve",
     )
+    max_agent_steps: int = Field(
+        default=10,
+        description="Maximum ReAct steps for agent tasks",
+    )
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
 

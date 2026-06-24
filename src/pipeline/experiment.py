@@ -21,6 +21,7 @@ from src.core.models import (
     ModelComparison,
     Prediction,
     Task,
+    TaskType,
 )
 from src.core.registry import get_component
 from src.dataset.loader import JSONDataset
@@ -32,11 +33,21 @@ from src.evaluation.metrics.retrieval import (
     RetrievalPrecisionMetric,
     RetrievalRecallMetric,
 )
+from src.evaluation.metrics.agent import (
+    ReasoningTraceCoherenceMetric,
+    TaskSuccessMetric,
+    ToolSelectionAccuracyMetric,
+)
 from src.inference.adapters.anthropic import AnthropicAdapter
 from src.inference.adapters.openai import OpenAIAdapter
+from src.inference.agent import AgentPipeline
 from src.inference.rag import RAGPipeline
 from src.inference.reranker import Reranker, TwoStageRetriever
 from src.inference.retriever import DenseRetriever
+from src.analysis.cluster import FailureClusterer
+from src.analysis.correlation import MetricCorrelator
+from src.analysis.breakdown import StratifiedAnalyzer
+from src.analysis.reporter import ReportGenerator
 from src.utils.logging import close_tracing, get_logger, init_tracing
 from src.utils.reproducibility import seed_info, set_seed
 
@@ -48,6 +59,9 @@ _METRIC_REGISTRY: Dict[str, type] = {
     "retrieval_precision": RetrievalPrecisionMetric,
     "retrieval_recall": RetrievalRecallMetric,
     "answer_relevance": AnswerRelevanceMetric,
+    "task_success": TaskSuccessMetric,
+    "tool_selection_accuracy": ToolSelectionAccuracyMetric,
+    "reasoning_trace_coherence": ReasoningTraceCoherenceMetric,
 }
 
 
@@ -96,22 +110,33 @@ class ExperimentRunner:
             scorers: Dict[str, CompositeScorer] = {}
             metrics = self._build_metrics(judge, config.metrics)
 
-            # ── Load corpus for retrieval ──────────────────
-            corpus_path = Path(config.dataset_path).parent / "corpus.json"
-            retriever = self._build_retriever(corpus_path, config)
+            # ── Load corpus for retrieval (RAG tasks only) ──
+            has_rag = any(t.type == TaskType.RAG for t in tasks)
+            retriever = None
+            if has_rag:
+                corpus_path = Path(config.dataset_path).parent / "corpus.json"
+                retriever = self._build_retriever(corpus_path, config)
 
             # ── Run for each model ─────────────────────────
             for model_id in config.models:
                 logger.info(f"Evaluating model: {model_id}")
                 model_params = config.model_params.get(model_id, {})
                 llm = self._build_llm(model_id, model_params)
-                pipeline = RAGPipeline(llm=llm, retriever=retriever)
+                rag_pipeline = RAGPipeline(llm=llm, retriever=retriever) if has_rag else None
+                agent_pipeline = AgentPipeline(llm=llm, max_steps=config.max_agent_steps) if any(t.type == TaskType.AGENT for t in tasks) else None
 
                 # Warm up metrics for this model
                 scorers[model_id] = CompositeScorer(metrics=metrics)
 
                 for task in tasks:
                     try:
+                        if task.type == TaskType.RAG:
+                            pipeline = rag_pipeline
+                        else:
+                            pipeline = agent_pipeline
+                        if pipeline is None:
+                            logger.warning(f"Skipping task {task.id}: no pipeline for type {task.type}")
+                            continue
                         prediction = await pipeline.run(task)
                         manifest.predictions.append(prediction)
                         result = await scorers[model_id].evaluate(task, prediction)
@@ -126,6 +151,10 @@ class ExperimentRunner:
             manifest.completed_at = datetime.now()
             manifest.status = "completed"
             report = self._aggregate(manifest)
+
+            # ── Deep analysis ─────────────────────────────
+            self._analyze(report, manifest, output_dir)
+
             manifest.metadata["aggregate_report"] = report.model_dump()
 
             # ── Save manifest ──────────────────────────────
@@ -186,7 +215,7 @@ class ExperimentRunner:
             if cls is None:
                 logger.warning(f"Unknown metric: {name}, skipping")
                 continue
-            if cls in (FaithfulnessMetric, AnswerRelevanceMetric):
+            if cls in (FaithfulnessMetric, AnswerRelevanceMetric, TaskSuccessMetric, ReasoningTraceCoherenceMetric):
                 metrics.append(cls(judge))
             else:
                 metrics.append(cls())
@@ -219,6 +248,36 @@ class ExperimentRunner:
             return stage2
 
         return dense
+
+    def _analyze(
+        self,
+        report: AggregateReport,
+        manifest: ExperimentManifest,
+        output_dir: Path,
+    ) -> None:
+        """Run deep analysis: clustering, correlation, breakdown, report generation."""
+        try:
+            metric_names = manifest.config.metrics
+
+            # Failure clustering
+            clusterer = FailureClusterer()
+            clusters = clusterer.cluster(manifest.results, manifest.tasks)
+            report.failure_clusters = clusters
+
+            # Metric correlation
+            correlator = MetricCorrelator()
+            correlations = correlator.compute(manifest.results, metric_names)
+
+            # Stratified breakdown
+            analyzer = StratifiedAnalyzer()
+            breakdown = analyzer.analyze(manifest.results, manifest.tasks, metric_names)
+
+            # Generate report
+            reporter = ReportGenerator()
+            reporter.generate(report, correlations, breakdown, output_dir)
+
+        except Exception:
+            logger.warning("Deep analysis failed (non-fatal)", exc_info=True)
 
     def _aggregate(self, manifest: ExperimentManifest) -> AggregateReport:
         model_ids = manifest.config.models

@@ -1,0 +1,26 @@
+# Kimi standalone agent evaluation
+experiment_id: agent_kimi_baseline
+description: "Kimi moonshot-v1-8k agent evaluation — standalone run"
+
+models:
+  - moonshot-v1-8k
+
+metrics:
+  - task_success
+  - tool_selection_accuracy
+  - reasoning_trace_coherence
+
+dataset_path: data/samples/agent_tasks_50.json
+random_seed: 42
+llm_judge_model: deepseek-chat
+max_tasks: 30
+max_agent_steps: 10
+
+model_params:
+  moonshot-v1-8k:
+    base_url: https://api.moonshot.cn/v1
+    env_prefix: KIMI
+
+judge_params:
+  base_url: https://api.deepseek.com/v1
+  env_prefix: DEEPSEEK

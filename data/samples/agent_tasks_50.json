@@ -1,0 +1,632 @@
+{
+  "metadata": {
+    "name": "Agent Evaluation Sample Dataset",
+    "version": "1.0",
+    "task_count": 50,
+    "domains": ["data_analysis", "research", "problem_solving"],
+    "description": "50 multi-step agent tasks using mock tools for Phase 3 testing",
+    "tools_available": ["search_knowledge_base", "calculator", "lookup_table", "get_date"]
+  },
+  "tasks": [
+    {
+      "id": "agt_001",
+      "type": "agent",
+      "query": "Search the knowledge base for information about the Transformer architecture in the AI domain.",
+      "ground_truth": "The Transformer architecture was introduced in 2017 by Vaswani et al. It uses self-attention mechanisms to process sequences in parallel, replacing recurrence.",
+      "tools": [
+        {"type": "function", "function": {"name": "search_knowledge_base", "description": "Search a knowledge base for facts on a given topic.", "parameters": {"type": "object", "properties": {"query": {"type": "string", "description": "The search query or keywords"}, "domain": {"type": "string", "enum": ["ai", "medicine", "history"], "description": "Knowledge domain"}}, "required": ["query", "domain"]}}}
+      ],
+      "expected_tool_sequence": ["search_knowledge_base"],
+      "domain": "research",
+      "difficulty": "easy"
+    },
+    {
+      "id": "agt_002",
+      "type": "agent",
+      "query": "Look up information about the COVID-19 pandemic in the medicine knowledge base.",
+      "ground_truth": "COVID-19 is caused by SARS-CoV-2, first identified in Wuhan in December 2019. It spreads via respiratory droplets. mRNA vaccines were developed by Pfizer-BioNTech and Moderna.",
+      "tools": [
+        {"type": "function", "function": {"name": "search_knowledge_base", "description": "Search a knowledge base for facts on a given topic.", "parameters": {"type": "object", "properties": {"query": {"type": "string"}, "domain": {"type": "string", "enum": ["ai", "medicine", "history"]}}, "required": ["query", "domain"]}}}
+      ],
+      "expected_tool_sequence": ["search_knowledge_base"],
+      "domain": "research",
+      "difficulty": "easy"
+    },
+    {
+      "id": "agt_003",
+      "type": "agent",
+      "query": "Find out when World War II started and ended using the history knowledge base.",
+      "ground_truth": "World War II (1939-1945) involved the Axis vs Allies. It began with Germany's invasion of Poland and ended with Japan's surrender after atomic bombings.",
+      "tools": [
+        {"type": "function", "function": {"name": "search_knowledge_base", "description": "Search a knowledge base for facts on a given topic.", "parameters": {"type": "object", "properties": {"query": {"type": "string"}, "domain": {"type": "string", "enum": ["ai", "medicine", "history"]}}, "required": ["query", "domain"]}}}
+      ],
+      "expected_tool_sequence": ["search_knowledge_base"],
+      "domain": "research",
+      "difficulty": "easy"
+    },
+    {
+      "id": "agt_004",
+      "type": "agent",
+      "query": "What is LoRA and how is it used in AI? Use the knowledge base.",
+      "ground_truth": "LoRA (Low-Rank Adaptation) is a parameter-efficient fine-tuning method that adds low-rank matrices to pre-trained weights, reducing trainable parameters by 10000x.",
+      "tools": [
+        {"type": "function", "function": {"name": "search_knowledge_base", "description": "Search a knowledge base for facts on a given topic.", "parameters": {"type": "object", "properties": {"query": {"type": "string"}, "domain": {"type": "string", "enum": ["ai", "medicine", "history"]}}, "required": ["query", "domain"]}}}
+      ],
+      "expected_tool_sequence": ["search_knowledge_base"],
+      "domain": "research",
+      "difficulty": "easy"
+    },
+    {
+      "id": "agt_005",
+      "type": "agent",
+      "query": "Tell me about the discovery of penicillin. Search in medicine.",
+      "ground_truth": "Penicillin was discovered by Alexander Fleming in 1928. It is a beta-lactam antibiotic that inhibits bacterial cell wall synthesis.",
+      "tools": [
+        {"type": "function", "function": {"name": "search_knowledge_base", "description": "Search a knowledge base for facts on a given topic.", "parameters": {"type": "object", "properties": {"query": {"type": "string"}, "domain": {"type": "string", "enum": ["ai", "medicine", "history"]}}, "required": ["query", "domain"]}}}
+      ],
+      "expected_tool_sequence": ["search_knowledge_base"],
+      "domain": "research",
+      "difficulty": "easy"
+    },
+    {
+      "id": "agt_006",
+      "type": "agent",
+      "query": "What were the emergent abilities of LLMs? Use the AI knowledge base.",
+      "ground_truth": "Emergent abilities of LLMs include in-context learning, chain-of-thought reasoning, instruction following, and tool use.",
+      "tools": [
+        {"type": "function", "function": {"name": "search_knowledge_base", "description": "Search a knowledge base for facts on a given topic.", "parameters": {"type": "object", "properties": {"query": {"type": "string"}, "domain": {"type": "string", "enum": ["ai", "medicine", "history"]}}, "required": ["query", "domain"]}}}
+      ],
+      "expected_tool_sequence": ["search_knowledge_base"],
+      "domain": "research",
+      "difficulty": "easy"
+    },
+    {
+      "id": "agt_007",
+      "type": "agent",
+      "query": "How does MRI technology work? Search the medicine knowledge base.",
+      "ground_truth": "MRI uses strong magnetic fields and radio waves to produce detailed images of organs and tissues. It does not use ionizing radiation.",
+      "tools": [
+        {"type": "function", "function": {"name": "search_knowledge_base", "description": "Search a knowledge base for facts on a given topic.", "parameters": {"type": "object", "properties": {"query": {"type": "string"}, "domain": {"type": "string", "enum": ["ai", "medicine", "history"]}}, "required": ["query", "domain"]}}}
+      ],
+      "expected_tool_sequence": ["search_knowledge_base"],
+      "domain": "research",
+      "difficulty": "easy"
+    },
+    {
+      "id": "agt_008",
+      "type": "agent",
+      "query": "Calculate 15 * 8 + 42.",
+      "ground_truth": "15 * 8 = 120, plus 42 = 162. The result is 162.",
+      "tools": [
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string", "description": "Mathematical expression to evaluate"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["calculator"],
+      "domain": "problem_solving",
+      "difficulty": "easy"
+    },
+    {
+      "id": "agt_009",
+      "type": "agent",
+      "query": "What is (45 + 27) * 3?",
+      "ground_truth": "45 + 27 = 72, times 3 = 216. The result is 216.",
+      "tools": [
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["calculator"],
+      "domain": "problem_solving",
+      "difficulty": "easy"
+    },
+    {
+      "id": "agt_010",
+      "type": "agent",
+      "query": "Calculate 2 to the power of 10.",
+      "ground_truth": "2^10 = 1024.",
+      "tools": [
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["calculator"],
+      "domain": "problem_solving",
+      "difficulty": "easy"
+    },
+    {
+      "id": "agt_011",
+      "type": "agent",
+      "query": "Find all employees in the Engineering department.",
+      "ground_truth": "Engineering has 4 employees: Alice Chen ($150,000), Bob Smith ($135,000), David Lee ($160,000), Henry Jones ($170,000).",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table"],
+      "domain": "data_analysis",
+      "difficulty": "easy"
+    },
+    {
+      "id": "agt_012",
+      "type": "agent",
+      "query": "List all products in the Electronics category.",
+      "ground_truth": "Electronics: Laptop Pro ($1200, 45 in stock), Wireless Mouse ($35, 200 in stock), Monitor 27\" ($320, 60 in stock), USB-C Hub ($45, 150 in stock).",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table"],
+      "domain": "data_analysis",
+      "difficulty": "easy"
+    },
+    {
+      "id": "agt_013",
+      "type": "agent",
+      "query": "What is the current date in ISO format?",
+      "ground_truth": "The current date is 2026-06-24.",
+      "tools": [
+        {"type": "function", "function": {"name": "get_date", "description": "Get the current date.", "parameters": {"type": "object", "properties": {"format": {"type": "string", "enum": ["iso", "readable", "year_only"]}}, "required": []}}}
+      ],
+      "expected_tool_sequence": ["get_date"],
+      "domain": "research",
+      "difficulty": "easy"
+    },
+    {
+      "id": "agt_014",
+      "type": "agent",
+      "query": "Look up the employee with ID e004 in the employees table.",
+      "ground_truth": "David Lee, Engineering department, $160,000 salary, joined 2017-08-01.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table"],
+      "domain": "data_analysis",
+      "difficulty": "easy"
+    },
+    {
+      "id": "agt_015",
+      "type": "agent",
+      "query": "Find product p003 in the products table.",
+      "ground_truth": "Standing Desk, Furniture category, $450, 15 in stock.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table"],
+      "domain": "data_analysis",
+      "difficulty": "easy"
+    },
+    {
+      "id": "agt_016",
+      "type": "agent",
+      "query": "Search for information about gene therapy in the medicine domain, then also search for information about CRISPR.",
+      "ground_truth": "Gene therapy introduces genetic material into cells to treat disease. CRISPR-Cas9, discovered in 2012, enables precise gene editing by cutting DNA at specific sequences.",
+      "tools": [
+        {"type": "function", "function": {"name": "search_knowledge_base", "description": "Search a knowledge base for facts on a given topic.", "parameters": {"type": "object", "properties": {"query": {"type": "string"}, "domain": {"type": "string", "enum": ["ai", "medicine", "history"]}}, "required": ["query", "domain"]}}}
+      ],
+      "expected_tool_sequence": ["search_knowledge_base", "search_knowledge_base"],
+      "domain": "research",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_017",
+      "type": "agent",
+      "query": "What is the average salary of employees in the Engineering department? First look up Engineering employees, then calculate the average.",
+      "ground_truth": "Engineering salaries: Alice Chen $150,000, Bob Smith $135,000, David Lee $160,000, Henry Jones $170,000. Average: (150000+135000+160000+170000)/4 = $153,750.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}},
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "calculator"],
+      "domain": "data_analysis",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_018",
+      "type": "agent",
+      "query": "What is the total value of all Electronics products in inventory? Calculate price * stock for each and sum them.",
+      "ground_truth": "Laptop Pro: 1200*45=54000, Wireless Mouse: 35*200=7000, Monitor 27\": 320*60=19200, USB-C Hub: 45*150=6750. Total: 54000+7000+19200+6750 = $86,950.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}},
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "calculator"],
+      "domain": "data_analysis",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_019",
+      "type": "agent",
+      "query": "Find out how many employees are in Sales, then double that number. Look up Sales employees and calculate.",
+      "ground_truth": "Sales has 2 employees (Frank Wang and Grace Kim). Double is 4.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}},
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "calculator"],
+      "domain": "data_analysis",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_020",
+      "type": "agent",
+      "query": "How many Furniture products are there, and what is their average price?",
+      "ground_truth": "Furniture: Standing Desk ($450), Office Chair ($280), Desk Lamp ($55). Count: 3. Average price: (450+280+55)/3 = $261.67.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}},
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "calculator"],
+      "domain": "data_analysis",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_021",
+      "type": "agent",
+      "query": "What is the total salary budget for the Marketing department?",
+      "ground_truth": "Marketing has 2 employees: Carol Davis ($120,000) and Eva Martinez ($115,000). Total: $235,000.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}},
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "calculator"],
+      "domain": "data_analysis",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_022",
+      "type": "agent",
+      "query": "What is the price difference between the most expensive and cheapest Electronics product?",
+      "ground_truth": "Most expensive: Laptop Pro ($1200). Cheapest: Wireless Mouse ($35). Difference: $1,165.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}},
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "calculator"],
+      "domain": "data_analysis",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_023",
+      "type": "agent",
+      "query": "Search for what RAG is in AI, then also search for information about text embeddings in AI.",
+      "ground_truth": "RAG combines a retriever with a generative LLM to ground responses in external documents. Text embeddings are dense vector representations where semantically similar texts are close in vector space.",
+      "tools": [
+        {"type": "function", "function": {"name": "search_knowledge_base", "description": "Search a knowledge base for facts on a given topic.", "parameters": {"type": "object", "properties": {"query": {"type": "string"}, "domain": {"type": "string", "enum": ["ai", "medicine", "history"]}}, "required": ["query", "domain"]}}}
+      ],
+      "expected_tool_sequence": ["search_knowledge_base", "search_knowledge_base"],
+      "domain": "research",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_024",
+      "type": "agent",
+      "query": "Compare the Apollo 11 moon landing with the French Revolution by searching history knowledge base for both.",
+      "ground_truth": "Apollo 11 landed on the Moon on July 20, 1969. The French Revolution (1789-1799) overthrew the monarchy. These events occurred about 180 years apart.",
+      "tools": [
+        {"type": "function", "function": {"name": "search_knowledge_base", "description": "Search a knowledge base for facts on a given topic.", "parameters": {"type": "object", "properties": {"query": {"type": "string"}, "domain": {"type": "string", "enum": ["ai", "medicine", "history"]}}, "required": ["query", "domain"]}}}
+      ],
+      "expected_tool_sequence": ["search_knowledge_base", "search_knowledge_base"],
+      "domain": "research",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_025",
+      "type": "agent",
+      "query": "Search for information about vaccines in medicine, and also search for COVID-19 in medicine.",
+      "ground_truth": "Vaccines train the immune system by exposing it to antigens. Types include mRNA, viral vector, inactivated, and subunit. COVID-19 mRNA vaccines were developed by Pfizer-BioNTech and Moderna.",
+      "tools": [
+        {"type": "function", "function": {"name": "search_knowledge_base", "description": "Search a knowledge base for facts on a given topic.", "parameters": {"type": "object", "properties": {"query": {"type": "string"}, "domain": {"type": "string", "enum": ["ai", "medicine", "history"]}}, "required": ["query", "domain"]}}}
+      ],
+      "expected_tool_sequence": ["search_knowledge_base", "search_knowledge_base"],
+      "domain": "research",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_026",
+      "type": "agent",
+      "query": "Look up all the highest-paid employee in Engineering. Compare their salary with the highest in Marketing.",
+      "ground_truth": "Engineering highest: Henry Jones ($170,000). Marketing highest: Carol Davis ($120,000). Difference: $50,000. Henry earns more by $50,000.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}},
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "lookup_table", "calculator"],
+      "domain": "data_analysis",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_027",
+      "type": "agent",
+      "query": "Find which department has more employees: Engineering or Sales. Then calculate how many more.",
+      "ground_truth": "Engineering has 4 employees, Sales has 2. Engineering has 2 more employees.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}},
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "lookup_table", "calculator"],
+      "domain": "data_analysis",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_028",
+      "type": "agent",
+      "query": "What is the total stock count of all Furniture products?",
+      "ground_truth": "Furniture stock: Standing Desk (15), Office Chair (30), Desk Lamp (80). Total: 125 units.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}},
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "calculator"],
+      "domain": "data_analysis",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_029",
+      "type": "agent",
+      "query": "Search the AI knowledge base for GPT-4, then search medicine for MRI. Summarize both findings.",
+      "ground_truth": "GPT-4 is OpenAI's multimodal LLM released in 2023. MRI uses strong magnetic fields to produce detailed images of organs without ionizing radiation.",
+      "tools": [
+        {"type": "function", "function": {"name": "search_knowledge_base", "description": "Search a knowledge base for facts on a given topic.", "parameters": {"type": "object", "properties": {"query": {"type": "string"}, "domain": {"type": "string", "enum": ["ai", "medicine", "history"]}}, "required": ["query", "domain"]}}}
+      ],
+      "expected_tool_sequence": ["search_knowledge_base", "search_knowledge_base"],
+      "domain": "research",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_030",
+      "type": "agent",
+      "query": "Find all employees hired before 2020 and calculate their average salary.",
+      "ground_truth": "Hired before 2020: Alice Chen (2019, $150K), David Lee (2017, $160K), Frank Wang (2019, $130K), Henry Jones (2016, $170K). Average: (150+160+130+170)/4 = $152,500.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}},
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "lookup_table", "lookup_table", "lookup_table", "calculator"],
+      "domain": "data_analysis",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_031",
+      "type": "agent",
+      "query": "Search the knowledge base for information about fine-tuning in AI, then search for tokenization in AI. Explain how they relate.",
+      "ground_truth": "Fine-tuning updates a pre-trained model's weights on task-specific data. Tokenization splits text into tokens using subword methods like BPE. Effective fine-tuning depends on proper tokenization of the training data.",
+      "tools": [
+        {"type": "function", "function": {"name": "search_knowledge_base", "description": "Search a knowledge base for facts on a given topic.", "parameters": {"type": "object", "properties": {"query": {"type": "string"}, "domain": {"type": "string", "enum": ["ai", "medicine", "history"]}}, "required": ["query", "domain"]}}}
+      ],
+      "expected_tool_sequence": ["search_knowledge_base", "search_knowledge_base"],
+      "domain": "research",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_032",
+      "type": "agent",
+      "query": "What is the revenue difference if we sold all Electronics at full price versus all at 20% off?",
+      "ground_truth": "Full price revenue: (1200*45 + 35*200 + 320*60 + 45*150) = 54000+7000+19200+6750 = $86,950. 20% off: $86,950 * 0.8 = $69,560. Difference: $17,390.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}},
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "calculator", "calculator"],
+      "domain": "data_analysis",
+      "difficulty": "hard"
+    },
+    {
+      "id": "agt_033",
+      "type": "agent",
+      "query": "What percentage of total employees work in Engineering?",
+      "ground_truth": "Total employees: 8. Engineering: 4. Percentage: 50%.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}},
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "lookup_table", "lookup_table", "calculator"],
+      "domain": "data_analysis",
+      "difficulty": "hard"
+    },
+    {
+      "id": "agt_034",
+      "type": "agent",
+      "query": "If we give all Sales employees a 10% raise, what is the new total salary for the Sales department?",
+      "ground_truth": "Sales: Frank Wang ($130K), Grace Kim ($125K). Current total: $255,000. After 10% raise: $255,000 * 1.1 = $280,500.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}},
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "calculator"],
+      "domain": "data_analysis",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_035",
+      "type": "agent",
+      "query": "Search for information about type 2 diabetes and then search for information about the industrial revolution. Are these topics related?",
+      "ground_truth": "Type 2 diabetes is a metabolic disorder characterized by insulin resistance. The Industrial Revolution transformed manufacturing through mechanization. These topics are not directly related but industrialization has impacted public health.",
+      "tools": [
+        {"type": "function", "function": {"name": "search_knowledge_base", "description": "Search a knowledge base for facts on a given topic.", "parameters": {"type": "object", "properties": {"query": {"type": "string"}, "domain": {"type": "string", "enum": ["ai", "medicine", "history"]}}, "required": ["query", "domain"]}}}
+      ],
+      "expected_tool_sequence": ["search_knowledge_base", "search_knowledge_base"],
+      "domain": "research",
+      "difficulty": "hard"
+    },
+    {
+      "id": "agt_036",
+      "type": "agent",
+      "query": "Calculate the compound expression: (150000 + 135000 + 120000) / 3.",
+      "ground_truth": "(150000 + 135000 + 120000) / 3 = 405000 / 3 = 135000.",
+      "tools": [
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["calculator"],
+      "domain": "problem_solving",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_037",
+      "type": "agent",
+      "query": "Find the total inventory value: for each product, price * stock. Sum all products.",
+      "ground_truth": "Laptop Pro: 1200*45=$54,000; Mouse: 35*200=$7,000; Desk: 450*15=$6,750; Monitor: 320*60=$19,200; Chair: 280*30=$8,400; Hub: 45*150=$6,750; Lamp: 55*80=$4,400. Total: $106,500.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}},
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "lookup_table", "lookup_table", "calculator"],
+      "domain": "data_analysis",
+      "difficulty": "hard"
+    },
+    {
+      "id": "agt_038",
+      "type": "agent",
+      "query": "Which employee has the highest salary overall? Look through all departments.",
+      "ground_truth": "Henry Jones (Engineering, $170,000) has the highest salary. Total employees: 8 across 3 departments.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "lookup_table", "lookup_table"],
+      "domain": "data_analysis",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_039",
+      "type": "agent",
+      "query": "Search for the Roman Empire in history, then search for the moon landing in history. Which happened first?",
+      "ground_truth": "The Roman Empire existed from 27 BCE to 476 CE. Apollo 11 landed on the Moon in 1969. The Roman Empire predates the moon landing by roughly 2,000 years.",
+      "tools": [
+        {"type": "function", "function": {"name": "search_knowledge_base", "description": "Search a knowledge base for facts on a given topic.", "parameters": {"type": "object", "properties": {"query": {"type": "string"}, "domain": {"type": "string", "enum": ["ai", "medicine", "history"]}}, "required": ["query", "domain"]}}}
+      ],
+      "expected_tool_sequence": ["search_knowledge_base", "search_knowledge_base"],
+      "domain": "research",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_040",
+      "type": "agent",
+      "query": "What is the cheapest product across all categories?",
+      "ground_truth": "Wireless Mouse at $35 is the cheapest product.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "lookup_table"],
+      "domain": "data_analysis",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_041",
+      "type": "agent",
+      "query": "How much money would I need to buy one of each Furniture product?",
+      "ground_truth": "Furniture: Standing Desk ($450) + Office Chair ($280) + Desk Lamp ($55) = $785.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}},
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "calculator"],
+      "domain": "problem_solving",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_042",
+      "type": "agent",
+      "query": "How does the average salary of Engineering compare to Marketing? Look up both and compute.",
+      "ground_truth": "Engineering average: (150+135+160+170)/4 = $153,750. Marketing average: (120+115)/2 = $117,500. Engineering average is $36,250 higher.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}},
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "lookup_table", "calculator"],
+      "domain": "data_analysis",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_043",
+      "type": "agent",
+      "query": "What is the total number of units in stock across all products?",
+      "ground_truth": "Total stock: 45+200+15+60+30+150+80 = 580 units.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}},
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "lookup_table", "calculator"],
+      "domain": "data_analysis",
+      "difficulty": "hard"
+    },
+    {
+      "id": "agt_044",
+      "type": "agent",
+      "query": "Search the history knowledge base for information about the French Revolution and the Industrial Revolution. Compare their time periods.",
+      "ground_truth": "The French Revolution was 1789-1799. The Industrial Revolution was 1760-1840. They overlapped: the Industrial Revolution was already underway when the French Revolution began.",
+      "tools": [
+        {"type": "function", "function": {"name": "search_knowledge_base", "description": "Search a knowledge base for facts on a given topic.", "parameters": {"type": "object", "properties": {"query": {"type": "string"}, "domain": {"type": "string", "enum": ["ai", "medicine", "history"]}}, "required": ["query", "domain"]}}}
+      ],
+      "expected_tool_sequence": ["search_knowledge_base", "search_knowledge_base"],
+      "domain": "research",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_045",
+      "type": "agent",
+      "query": "If every employee got a flat $5,000 raise, what would be the new total salary budget?",
+      "ground_truth": "8 employees × $5,000 = $40,000 total raise. Current total: $1,105,000. New total: $1,145,000.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}},
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "lookup_table", "lookup_table", "calculator"],
+      "domain": "data_analysis",
+      "difficulty": "hard"
+    },
+    {
+      "id": "agt_046",
+      "type": "agent",
+      "query": "Compare GPT-4 and LoRA: search the AI knowledge base for both and explain how they relate.",
+      "ground_truth": "GPT-4 is OpenAI's multimodal LLM released in 2023. LoRA is a parameter-efficient fine-tuning method. LoRA can be used to fine-tune large models like GPT-4 for specific tasks.",
+      "tools": [
+        {"type": "function", "function": {"name": "search_knowledge_base", "description": "Search a knowledge base for facts on a given topic.", "parameters": {"type": "object", "properties": {"query": {"type": "string"}, "domain": {"type": "string", "enum": ["ai", "medicine", "history"]}}, "required": ["query", "domain"]}}}
+      ],
+      "expected_tool_sequence": ["search_knowledge_base", "search_knowledge_base"],
+      "domain": "research",
+      "difficulty": "medium"
+    },
+    {
+      "id": "agt_047",
+      "type": "agent",
+      "query": "Find the second most expensive product. First look up all products, identify by price order.",
+      "ground_truth": "Products by price: Standing Desk ($450), Monitor 27\" ($320), Office Chair ($280), Laptop Pro ($1200), Desk Lamp ($55). Second most expensive: Standing Desk at $450. Wait, actually: Laptop Pro ($1200), Standing Desk ($450), Monitor 27\" ($320), Office Chair ($280), Desk Lamp ($55), USB-C Hub ($45), Wireless Mouse ($35). Second: Standing Desk at $450.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "lookup_table"],
+      "domain": "data_analysis",
+      "difficulty": "hard"
+    },
+    {
+      "id": "agt_048",
+      "type": "agent",
+      "query": "What is the combined monthly salary of all employees? Assume annual salary / 12 for each.",
+      "ground_truth": "Total annual: $1,105,000. Monthly: $92,083.33.",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}},
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "lookup_table", "lookup_table", "calculator"],
+      "domain": "data_analysis",
+      "difficulty": "hard"
+    },
+    {
+      "id": "agt_049",
+      "type": "agent",
+      "query": "Search all three knowledge bases (AI, medicine, history) for the term 'revolution' and summarize findings.",
+      "ground_truth": "AI: no direct revolution term, but the Transformer (2017) revolutionized NLP. Medicine: Penicillin revolutionized infectious disease treatment. History: The French Revolution (1789-1799) and Industrial Revolution (1760-1840) were transformative periods.",
+      "tools": [
+        {"type": "function", "function": {"name": "search_knowledge_base", "description": "Search a knowledge base for facts on a given topic.", "parameters": {"type": "object", "properties": {"query": {"type": "string"}, "domain": {"type": "string", "enum": ["ai", "medicine", "history"]}}, "required": ["query", "domain"]}}}
+      ],
+      "expected_tool_sequence": ["search_knowledge_base", "search_knowledge_base", "search_knowledge_base"],
+      "domain": "research",
+      "difficulty": "hard"
+    },
+    {
+      "id": "agt_050",
+      "type": "agent",
+      "query": "Calculate the total potential gross profit if all products are sold at full price and employees are only from Engineering department (use their total salary as cost).",
+      "ground_truth": "Total product value: $106,500. Engineering total salary: $615,000. Gross profit: $106,500 - $615,000 = -$508,500 (a loss, since annual salaries far exceed one-time inventory value).",
+      "tools": [
+        {"type": "function", "function": {"name": "lookup_table", "description": "Look up records in a database table.", "parameters": {"type": "object", "properties": {"table_name": {"type": "string", "enum": ["employees", "products"]}, "column": {"type": "string"}, "value": {"type": "string"}}, "required": ["table_name", "column", "value"]}}},
+        {"type": "function", "function": {"name": "calculator", "description": "Evaluate a mathematical expression.", "parameters": {"type": "object", "properties": {"expression": {"type": "string"}}, "required": ["expression"]}}}
+      ],
+      "expected_tool_sequence": ["lookup_table", "lookup_table", "lookup_table", "calculator"],
+      "domain": "problem_solving",
+      "difficulty": "hard"
+    }
+  ]
+}

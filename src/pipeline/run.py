@@ -32,7 +32,10 @@ def _load_dotenv() -> None:
                 continue
             key, _, value = line.partition("=")
             key, value = key.strip(), value.strip()
-            if key not in os.environ:  # Don't override existing env vars
+            # .env is the canonical source — always override
+            if key not in os.environ:
+                os.environ[key] = value
+            elif os.environ[key] != value:
                 os.environ[key] = value
 
 

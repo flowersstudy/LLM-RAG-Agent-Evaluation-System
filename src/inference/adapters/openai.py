@@ -120,10 +120,14 @@ class OpenAIAdapter(LLMAdapter):
         system_prompt: Optional[str] = None,
         **kwargs: Any,
     ) -> tuple[str, List[Dict[str, Any]], Dict[str, Any]]:
-        messages = []
-        if system_prompt:
-            messages.append({"role": "system", "content": system_prompt})
-        messages.append({"role": "user", "content": prompt})
+        # Allow pre-built messages (for multi-turn agent conversations)
+        if "messages" in kwargs:
+            messages = kwargs.pop("messages")
+        else:
+            messages = []
+            if system_prompt:
+                messages.append({"role": "system", "content": system_prompt})
+            messages.append({"role": "user", "content": prompt})
 
         tracer = get_tracer()
         tracer.log(

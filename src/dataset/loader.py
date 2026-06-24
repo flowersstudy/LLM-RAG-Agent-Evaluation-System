@@ -82,6 +82,8 @@ class JSONDataset(Dataset):
                 query=item["query"],
                 ground_truth=item["ground_truth"],
                 ground_truth_docs=docs,
+                tools=item.get("tools", []),
+                expected_tool_sequence=item.get("expected_tool_sequence"),
                 domain=item.get("domain", "general"),
                 difficulty=item.get("difficulty", "medium"),
                 metadata=item.get("metadata", {}),
