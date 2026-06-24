@@ -111,11 +111,16 @@ class ExperimentRunner:
                 scorers[model_id] = CompositeScorer(metrics=metrics)
 
                 for task in tasks:
-                    prediction = await pipeline.run(task)
-                    manifest.predictions.append(prediction)
-
-                    result = await scorers[model_id].evaluate(task, prediction)
-                    manifest.results.append(result)
+                    try:
+                        prediction = await pipeline.run(task)
+                        manifest.predictions.append(prediction)
+                        result = await scorers[model_id].evaluate(task, prediction)
+                        manifest.results.append(result)
+                    except Exception as e:
+                        logger.error(f"Task {task.id} failed for model {model_id}: {e}")
+                        manifest.metadata.setdefault("failed_tasks", []).append(
+                            {"task_id": task.id, "model_id": model_id, "error": str(e)}
+                        )
 
             # ── Generate aggregate report ──────────────────
             manifest.completed_at = datetime.now()
