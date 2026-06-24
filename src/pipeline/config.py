@@ -39,5 +39,7 @@ def parse_config(path: str | Path) -> ExperimentConfig:
         random_seed=data.get("random_seed", 42),
         llm_judge_model=data.get("llm_judge_model", "gpt-4o"),
         max_tasks=data.get("max_tasks"),
+        model_params=data.get("model_params", {}),
+        judge_params=data.get("judge_params", {}),
         metadata=data.get("metadata", {}),
     )

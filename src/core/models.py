@@ -179,8 +179,16 @@ class ExperimentConfig(BaseModel):
     dataset_path: str
     split: Optional[str] = None
     random_seed: int = 42
-    llm_judge_model: str = "gpt-4"          # Model used for LLM-as-judge
-    max_tasks: Optional[int] = None          # Limit for quick runs
+    llm_judge_model: str = "gpt-4o"          # Model used for LLM-as-judge
+    max_tasks: Optional[int] = None           # Limit for quick runs
+    model_params: Dict[str, Dict[str, Any]] = Field(
+        default_factory=dict,
+        description="Per-model overrides: base_url, api_key, provider",
+    )
+    judge_params: Dict[str, Any] = Field(
+        default_factory=dict,
+        description="Overrides for the judge model: base_url, api_key",
+    )
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
 
@@ -193,6 +201,7 @@ class ExperimentManifest(BaseModel):
     started_at: datetime = Field(default_factory=datetime.now)
     completed_at: Optional[datetime] = None
     status: Literal["running", "completed", "failed"] = "running"
+    metadata: Dict[str, Any] = Field(default_factory=dict)
 
 
 # ── Analysis ────────────────────────────────────────────────────────

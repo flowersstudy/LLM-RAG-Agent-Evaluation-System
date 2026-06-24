@@ -1,0 +1,26 @@
+# DeepSeek RAG evaluation
+experiment_id: deepseek_rag_baseline
+description: "Baseline RAG evaluation with DeepSeek on 50-task sample dataset"
+
+models:
+  - deepseek-chat
+
+metrics:
+  - faithfulness
+  - retrieval_precision
+  - retrieval_recall
+  - answer_relevance
+
+dataset_path: data/samples/rag_tasks_50.json
+random_seed: 42
+llm_judge_model: deepseek-chat
+max_tasks: 50
+
+model_params:
+  deepseek-chat:
+    base_url: https://api.deepseek.com/v1
+    env_prefix: DEEPSEEK
+
+judge_params:
+  base_url: https://api.deepseek.com/v1
+  env_prefix: DEEPSEEK

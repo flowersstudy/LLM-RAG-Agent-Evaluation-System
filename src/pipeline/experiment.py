@@ -7,9 +7,10 @@ Flow: config → dataset → (for each model) → (for each task) → inference 
 from __future__ import annotations
 
 import json
+import os
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List
+from typing import Any, Dict, List
 
 from src.core.interfaces import LLMAdapter, Pipeline
 from src.core.models import (
@@ -86,7 +87,7 @@ class ExperimentRunner:
             logger.info(f"Dataset loaded: {len(tasks)} tasks across {dataset.metadata.get('domains', [])}")
 
             # ── Build judge (shared across models) ─────────
-            judge_llm = OpenAIAdapter(model=config.llm_judge_model)
+            judge_llm = self._build_llm(config.llm_judge_model, config.judge_params)
             judge = StructuredJudge(judge_llm)
 
             # ── Build metrics ──────────────────────────────
@@ -100,7 +101,8 @@ class ExperimentRunner:
             # ── Run for each model ─────────────────────────
             for model_id in config.models:
                 logger.info(f"Evaluating model: {model_id}")
-                llm = OpenAIAdapter(model=model_id)
+                model_params = config.model_params.get(model_id, {})
+                llm = self._build_llm(model_id, model_params)
                 pipeline = RAGPipeline(llm=llm, retriever=retriever)
 
                 # Warm up metrics for this model
@@ -134,6 +136,28 @@ class ExperimentRunner:
             close_tracing()
 
         return str(output_dir)
+
+    def _build_llm(self, model_id: str, params: Dict[str, Any]) -> OpenAIAdapter:
+        """Build an LLM adapter with model-specific params.
+
+        api_key is resolved from:
+        1. params dict (highest priority)
+        2. environment variable: {PROVIDER}_API_KEY (e.g., DEEPSEEK_API_KEY)
+        3. environment variable: OPENAI_API_KEY (fallback)
+        """
+        base_url = params.get("base_url")
+        api_key = params.get("api_key")
+
+        # Resolve api_key from environment if not in params
+        if not api_key:
+            provider_prefix = params.get("env_prefix", "OPENAI")
+            api_key = os.environ.get(f"{provider_prefix}_API_KEY") or os.environ.get("OPENAI_API_KEY")
+
+        return OpenAIAdapter(
+            model=model_id,
+            api_key=api_key,
+            base_url=base_url,
+        )
 
     def _build_metrics(self, judge: StructuredJudge, metric_names: List[str]) -> list:
         metrics = []
