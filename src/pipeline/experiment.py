@@ -74,7 +74,11 @@ class ExperimentRunner:
 
         try:
             # ── Load dataset ───────────────────────────────
-            dataset = JSONDataset(config.dataset_path)
+            corpus_path = Path(config.dataset_path).parent / "corpus.json"
+            dataset = JSONDataset(
+                config.dataset_path,
+                corpus_path=corpus_path if corpus_path.exists() else None,
+            )
             tasks = list(dataset)
             if config.max_tasks:
                 tasks = tasks[: config.max_tasks]

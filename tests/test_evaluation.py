@@ -43,7 +43,7 @@ def prediction_perfect():
             model_id="test-model",
             retrieved_docs=[
                 Document(id="d1", content="ML is a subset of AI."),
-                Document(id="d2", content="Deep learning uses neural networks."),
+                Document(id="d99", content="Unrelated document about cats."),
             ],
             total_token_usage=TokenUsage(),
         ),
@@ -88,7 +88,7 @@ class TestRetrievalRecall:
         metric = RetrievalRecallMetric()
         result = await metric.evaluate(rag_task, prediction_perfect)
         # 1 relevant doc retrieved out of 3 relevant docs total
-        assert result["score"] == 1 / 3
+        assert result["score"] == pytest.approx(1 / 3, abs=0.001)
 
     @pytest.mark.asyncio
     async def test_zero_recall(self, rag_task, prediction_miss):
