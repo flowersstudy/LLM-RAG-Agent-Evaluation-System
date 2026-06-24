@@ -32,6 +32,7 @@ from src.evaluation.metrics.retrieval import (
     RetrievalPrecisionMetric,
     RetrievalRecallMetric,
 )
+from src.inference.adapters.anthropic import AnthropicAdapter
 from src.inference.adapters.openai import OpenAIAdapter
 from src.inference.rag import RAGPipeline
 from src.inference.reranker import Reranker, TwoStageRetriever
@@ -138,27 +139,40 @@ class ExperimentRunner:
 
         return str(output_dir)
 
-    def _build_llm(self, model_id: str, params: Dict[str, Any]) -> OpenAIAdapter:
+    def _build_llm(self, model_id: str, params: Dict[str, Any]):
         """Build an LLM adapter with model-specific params.
 
+        Provider is auto-detected from params.get('provider') or model name.
         api_key is resolved from:
         1. params dict (highest priority)
-        2. environment variable: {PROVIDER}_API_KEY (e.g., DEEPSEEK_API_KEY)
+        2. environment variable: {PROVIDER}_API_KEY (e.g., ANTHROPIC_API_KEY)
         3. environment variable: OPENAI_API_KEY (fallback)
         """
+        provider = params.get("provider", "openai")
         base_url = params.get("base_url")
         api_key = params.get("api_key")
 
         # Resolve api_key from environment if not in params
         if not api_key:
-            provider_prefix = params.get("env_prefix", "OPENAI")
-            api_key = os.environ.get(f"{provider_prefix}_API_KEY") or os.environ.get("OPENAI_API_KEY")
+            env_prefix = params.get("env_prefix", provider.upper())
+            api_key = (
+                os.environ.get(f"{env_prefix}_API_KEY")
+                or os.environ.get(f"{provider.upper()}_API_KEY")
+                or os.environ.get("OPENAI_API_KEY")
+            )
 
-        return OpenAIAdapter(
-            model=model_id,
-            api_key=api_key,
-            base_url=base_url,
-        )
+        if provider == "anthropic":
+            return AnthropicAdapter(
+                model=model_id,
+                api_key=api_key,
+                base_url=base_url,
+            )
+        else:
+            return OpenAIAdapter(
+                model=model_id,
+                api_key=api_key,
+                base_url=base_url,
+            )
 
     def _build_metrics(self, judge: StructuredJudge, metric_names: List[str]) -> list:
         metrics = []

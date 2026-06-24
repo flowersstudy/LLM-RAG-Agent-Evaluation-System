@@ -1,0 +1,35 @@
+# Multi-model comparison: DeepSeek vs Claude
+experiment_id: multimodel_deepseek_vs_claude
+description: "Head-to-head: DeepSeek vs Claude on RAG tasks"
+
+models:
+  - deepseek-chat
+  - claude-haiku-4-5
+
+metrics:
+  - faithfulness
+  - retrieval_precision
+  - retrieval_recall
+  - answer_relevance
+
+dataset_path: data/samples/rag_tasks_50.json
+random_seed: 42
+llm_judge_model: deepseek-chat
+max_tasks: 50
+retriever_model: all-MiniLM-L6-v2
+reranker_model: ""
+retriever_top_k: 5
+
+model_params:
+  deepseek-chat:
+    provider: openai
+    base_url: https://api.deepseek.com/v1
+    env_prefix: DEEPSEEK
+  claude-haiku-4-5:
+    provider: anthropic
+    env_prefix: ANTHROPIC
+
+judge_params:
+  provider: openai
+  base_url: https://api.deepseek.com/v1
+  env_prefix: DEEPSEEK
